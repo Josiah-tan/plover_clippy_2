@@ -1,46 +1,65 @@
-import re
-import os
-from datetime import datetime
+from .util import noNewOutput
+from .state import State
+from .default import Defaults
+from .actions import Actions
+from .translations import Translations
 
-from plover import log
+from .hooks.initialize import Initialize
+from .hooks.start import Start
+from .hooks.stop import Stop
+from .hooks.translate import OnTranslate
+
 from plover.engine import StenoEngine
-from plover.formatting import RetroFormatter
-from plover.oslayer.config import CONFIG_DIR
+
 
 class Clippy:
-    fname = os.path.join(CONFIG_DIR, 'clippy_2.txt')
-
-    @staticmethod
-    def tails(ls):
-        for i in reversed(range(len(ls))): yield ls[i:]
-
     def __init__(self, engine: StenoEngine) -> None:
         super().__init__()
+
+        hook = Initialize()
+        hook.pre(self)
+
         self.engine: StenoEngine = engine
+        self.state = State()
+        self.actions = Actions(self.state)
+        self.translations = Translations(self)
+
+        Defaults.init(self)
+
+        hook.post(self)
 
     def start(self) -> None:
-        self.engine.hook_connect('translated', self.onTranslation)
-        self.f = open(self.fname, 'a')
+        hook = Start()
+        hook.pre(self)
+        self.engine.hook_connect('translated', self.onTranslate)
+        self.state.f = open(self.state.output_file_name, 'a')
+
+        hook.post(self)
 
     def stop(self) -> None:
-        self.engine.hook_disconnect('translated', self.onTranslation)
-        self.f.close()
+        hook = Stop()
+        hook.pre(self)
 
-    def onTranslation(self, old, new):
+        self.engine.hook_disconnect('translated', self.onTranslate)
+        self.state.f.close()
 
-        # verify new output exists
-        for a in reversed(new):
-            if a.text and not a.text.isspace(): break
-        else: return
+        hook.post(self)
 
-        # check for optimality
-        last = None
-        for phrase in self.tails(self.engine.translator_state.translations[-10:]):
-            english = ''.join(RetroFormatter(phrase).last_fragments(999))
-            if english == last: continue
-            last = english
-            stroked = [y for x in phrase for y in x.rtfcre]
-            suggestions = [y for x in self.engine.get_suggestions(english) for y in x.steno_list if len(y) < len(stroked)]
-            if suggestions:
-                self.f.write(f'[{datetime.now().strftime("%F %T")}] {english:15} || {"/".join(stroked)} -> {", ".join("/".join(x) for x in suggestions)}\n')
-                self.f.flush()
+    def onTranslate(self, old, new):
+        hook = OnTranslate()
+        hook.pre(self)
+
+        if noNewOutput(new):
+            return
+
+        for phrase in self.translations.generator():
+
+            (
+                self.state.english,
+                self.state.stroked,
+                self.state.suggestions
+            ) = phrase
+
+            hook.call(self)
+
+        hook.post(self)

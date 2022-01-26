@@ -1,0 +1,17 @@
+- START: <2022-01-26 Wed 1:59> 
+**    ci              KR*EUP < KR*/*EU
+*     {#escape}       TPEFBG < SKWHEUFPL/SKWH-FRLG/SKA*EUP/SKWHEURBG
+**    ci              KR*EUP < KR*/*EU
+***   Ci              KR*EUP < KR*P/*EU
+***** Ci              KR*EUP < KR*P/*EU
+**    ci              KR*EUP < KR*/*EU
+****  {#escape}       TPEFBG < SKWHEUFPL/SKWH-FRLG/SKA*EUP/SKWHEURBG
+**    ci              KR*EUP < KR*/*EU
+*     this is         TH-S < TH/S
+****  cj              KR-PBLG < KR*/SKWR*
+**    I forget        SWR-FG < EU/TPORGT
+**    initially       TPHREURBL < TPHEURBL/HREU
+****  went into       TPWHAOEPBT < WEPBT/TPHAO
+**    AT              AT, ATS, AT < DA*P/T*P 
+**    CAT             KAT < KR*P/A*P/T*P 
+- STOP: <2022-01-26 Wed 2:00>
