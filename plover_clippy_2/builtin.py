@@ -8,7 +8,7 @@ from plover.formatting import RetroFormatter
 from plover.oslayer.config import CONFIG_DIR
 
 class Clippy:
-    fname = os.path.join(CONFIG_DIR, 'clippy.txt')
+    fname = os.path.join(CONFIG_DIR, 'clippy_2.txt')
 
     @staticmethod
     def tails(ls):
@@ -19,14 +19,14 @@ class Clippy:
         self.engine: StenoEngine = engine
 
     def start(self) -> None:
-        self.engine.hook_connect('translated', self.on_translation)
+        self.engine.hook_connect('translated', self.onTranslation)
         self.f = open(self.fname, 'a')
 
     def stop(self) -> None:
-        self.engine.hook_disconnect('translated', self.on_translation)
+        self.engine.hook_disconnect('translated', self.onTranslation)
         self.f.close()
 
-    def on_translation(self, old, new):
+    def onTranslation(self, old, new):
 
         # verify new output exists
         for a in reversed(new):
