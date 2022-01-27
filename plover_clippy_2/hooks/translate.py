@@ -59,7 +59,7 @@ class OnTranslate:
         return clippy.actions.add(
                 f'{efficiency_symbol:{max_pad_efficiency}}'
                 f'{english:{max_pad_english}} '
-                f'{stroked} < {suggestions}')
+                f'{suggestions} < {stroked}')
 
     def clippyDefaultCall(self, clippy):
         suggestions = self.formatSuggestions(clippy.state.suggestions)
