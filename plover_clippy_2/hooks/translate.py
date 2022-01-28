@@ -58,7 +58,7 @@ class OnTranslate:
         max_pad_english = clippy.state.max_pad_english
         return clippy.actions.add(
                 f'{efficiency_symbol:{max_pad_efficiency}}'
-                f'{english:{max_pad_english}} '
+                f' {english:{max_pad_english}} '
                 f'{suggestions} < {stroked}')
 
     def clippyDefaultCall(self, clippy):
