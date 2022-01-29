@@ -1,11 +1,112 @@
-Dev
-===
+Plover~clippy2~
+===============
 
 Installation
 ------------
 
-Get the latest build of plover
+-   Currently this plugin is not available in the official registry so
+    you need to clone this repo
+
+``` {.bash}
+git clone https://github.com/Josiah-tan/plover_clippy_2 
+```
+
+-   cd into this repo
+-   Then install for use!
+    -   Note that \"plover\" is the executable that you downloaded to
+        make Plover work in the first place
+    -   See this
+        [website](https://plover.readthedocs.io/en/latest/cli_reference.html)
+        for the different locations depending on which platform you are
+        using (Linux, Windows, etc)
+
+``` {.bash}
+cd plover_clippy_2
+plover -s plover_plugins install -e .
+```
+
+-   Finally make sure to open plover, then go to configure, plugins and
+    enable this plugin!
+
+Usage
+-----
+
+### Basic
+
+-   Now that you have installed this plugin it\'s time to use it!
+-   By default the output is written into clippy~2~.org in your config
+    files
+    -   Basically the same place as where your user.json and main.json
+        is
+
+### Customization
+
+-   TODO
+
+File viewing
+------------
+
+-   well obviously you can open up the file and take a look, but what if
+    you want to have a live view while training?
+
+### Terminal
+
+-   Run \`tail -f clippy~2~.org\` for a live viewing experience in the
+    terminal
+    -   Note that on wsl, the flag \`---disable-inotify\` may be
+        required to make \`tail\` work
+
+### Plover-live-view-nvim (neovim only)
+
+-   This [plugin](https://github.com/Josiah-tan/plover-live-view-nvim)
+    is a live viewer which supports:
+    -   Splits - You can split both horizontally and vertically and
+        customize the sizes of the splits
+    -   Terminal viewing (requires
+        [harpoon](https://github.com/ThePrimeagen/harpoon))
+    -   Buffer viewing (requires
+        [autoread-nvim](https://github.com/Josiah-tan/autoread-nvim))
+        -   The benefit of this over the terminal is that you can use
+            custom syntax highlighting!
+
+### vim-autoread (vim only \[no nvim\])
+
+-   This [plugin](https://github.com/chrisbra/vim-autoread) is a live
+    viewer for buffer viewing
+
+Dev
+---
+
+This section is for people who interested in improving this plugin!
+
+### Installation
+
+-   Get the latest build of plover
 
 ``` {.bash}
 pip3 install plover==4.0.0.dev10
 ```
+
+-   Fork this repo and clone it locally
+
+``` {.bash}
+git clone link/to/gitHub
+```
+
+-   cd into this repo
+-   Then install for use!
+    -   Note that \"plover\" is the executable that you downloaded to
+        make Plover work in the first place
+    -   See this
+        [website](https://plover.readthedocs.io/en/latest/cli_reference.html)
+        for the different locations depending on which platform you are
+        using (Linux, Windows, etc)
+
+``` {.bash}
+cd plover_clippy_2
+plover -s plover_plugins install -e .
+```
+
+-   Edit stuff, test it out and most of all, have fun!
+-   Feel free to chuck me a pull request or raise an issue if you have
+    any questions!
