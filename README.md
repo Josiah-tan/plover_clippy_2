@@ -1,5 +1,5 @@
-Plover~clippy2~
-===============
+Plover\_clippy\_2
+=================
 
 Installation
 ------------
@@ -34,7 +34,7 @@ Usage
 ### Basic
 
 -   Now that you have installed this plugin it\'s time to use it!
--   By default the output is written into clippy~2~.org in your config
+-   By default the output is written into clippy\_2.org in your config
     files
     -   Basically the same place as where your user.json and main.json
         is
@@ -51,7 +51,7 @@ File viewing
 
 ### Terminal
 
--   Run \`tail -f clippy~2~.org\` for a live viewing experience in the
+-   Run \`tail -f clippy\_2.org\` for a live viewing experience in the
     terminal
     -   Note that on wsl, the flag \`---disable-inotify\` may be
         required to make \`tail\` work

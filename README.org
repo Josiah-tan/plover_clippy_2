@@ -1,3 +1,4 @@
+#+OPTIONS: ^:nil
 * Plover_clippy_2
 ** Installation
 - Currently this plugin is not available in the official registry so you need to clone this repo
