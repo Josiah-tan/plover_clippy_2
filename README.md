@@ -51,10 +51,17 @@ File viewing
 
 ### Terminal
 
--   Run \`tail -f clippy\_2.org\` for a live viewing experience in the
-    terminal
-    -   Note that on wsl, the flag \`---disable-inotify\` may be
-        required to make \`tail\` work
+-   Here are some live view commands for different platforms
+
+1.  Windows
+
+    -   Run \`Get-Content clippy\_2.org -Wait -Tail 30\`
+
+2.  Linux
+
+    -   Run \`tail -f clippy\_2.org\`
+        -   Note that on WSL, the flag \`---disable-inotify\` may be
+            required to make \`tail\` work
 
 ### Plover-live-view-nvim (neovim only)
 
