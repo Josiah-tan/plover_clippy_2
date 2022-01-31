@@ -12,7 +12,8 @@ class Defaults:
 
     @staticmethod
     def initPost(obj, clippy):
-        return obj.orgDefaultPost(clippy)
+        pass
+        # return obj.orgDefaultPost(clippy)
 
     @staticmethod
     def startPre(obj, clippy):
