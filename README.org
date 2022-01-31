@@ -24,12 +24,20 @@ plover -s plover_plugins install -e .
 ** File viewing
 - well obviously you can open up the file and take a look, but what if you want to have a live view while training?
 *** Terminal
-- Here are some live view commands for different platforms
+- here are some live commands for different platforms
 **** Windows
-- Run `Get-Content clippy_2.org -Wait -Tail 30`
+#+BEGIN_SRC bash
+Get-Content clippy_2.org -Wait -Tail 30
+#+END_SRC
 **** Linux
-- Run `tail -f clippy_2.org`
-	- Note that on WSL, the flag `---disable-inotify` may be required to make `tail` work
+#+BEGIN_SRC bash
+tail -f clippy_2.org
+#+END_SRC
+**** WSL
+Note that on WSL, the flag `---disable-inotify` may be required to make `tail` work
+#+BEGIN_SRC bash
+tail -f ---disable-inotify clippy_2.org
+#+END_SRC
 *** Plover-live-view-nvim (neovim only)
 - This [[https://github.com/Josiah-tan/plover-live-view-nvim][plugin]] is a live viewer which supports:
 	- Splits - You can split both horizontally and vertically and customize the sizes of the splits
