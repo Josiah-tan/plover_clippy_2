@@ -20,7 +20,24 @@ plover -s plover_plugins install -e .
 - By default the output is written into clippy_2.org in your config files
 	- Basically the same place as where your user.json and main.json is
 *** Customization
-- TODO
+- In your config directory create a python file:
+	- clippy_2_cfg.py
+- Custom code in this section should be written into this file
+**** Initialization
+- Below are some states that can be set by the user
+	- Note that these are the defaults
+#+BEGIN_SRC python
+def initPost(obj, clippy):
+    clippy.state.output_file_name = "clippy_2.org"
+    clippy.state.efficiency_symbol = "*"
+    clippy.state.max_pad_efficiency = 5
+    clippy.state.max_pad_english = 15
+#+END_SRC
+- output_file_name: name of the output file, directory location will default to config directory
+- efficiency_symbol: any one character symbol used to denote how many strokes can be saved
+- max_pad_efficiency: the maximum number of efficiency symbols that are allowed to be displayed
+- max_pad_english: the maximum amount of space padding for English translations
+- initPost executes after this plugin initializes itself
 ** File viewing
 - well obviously you can open up the file and take a look, but what if you want to have a live view while training?
 *** Terminal

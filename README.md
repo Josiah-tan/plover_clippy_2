@@ -41,7 +41,32 @@ Usage
 
 ### Customization
 
--   TODO
+-   In your config directory create a python file:
+    -   clippy\_2\_cfg.py
+-   Custom code in this section should be written into this file
+
+1.  Initialization
+
+    -   Below are some states that can be set by the user
+        -   Note that these are the defaults
+
+    ``` {.python}
+    def initPost(obj, clippy):
+        clippy.state.output_file_name = "clippy_2.org"
+        clippy.state.efficiency_symbol = "*"
+        clippy.state.max_pad_efficiency = 5
+        clippy.state.max_pad_english = 15
+    ```
+
+    -   output\_file\_name: name of the output file, directory location
+        will default to config directory
+    -   efficiency\_symbol: any one character symbol used to denote how
+        many strokes can be saved
+    -   max\_pad\_efficiency: the maximum number of efficiency symbols
+        that are allowed to be displayed
+    -   max\_pad\_english: the maximum amount of space padding for
+        English translations
+    -   initPost executes after this plugin initializes itself
 
 File viewing
 ------------
