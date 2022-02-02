@@ -3,9 +3,18 @@ from ..config import Config
 from ..default import Defaults
 
 
+class Org:
+    def defaultPost(self, clippy):
+        date = getOrgDate()
+        return clippy.actions.add(f"- INIT <{date}>")
+
+    def defaultPre(self, clippy):
+        pass
+
+
 class Initialize:
     def __init__(self):
-        pass
+        self.org = Org()
 
     def pre(self, clippy):
         if hasattr(Config, "initPre"):
@@ -18,10 +27,3 @@ class Initialize:
             Config.initPost(self, clippy)
         else:
             Defaults.initPost(self, clippy)
-
-    def orgDefaultPost(self, clippy):
-        date = getOrgDate()
-        return clippy.actions.add(f"- INIT <{date}>")
-
-    def orgDefaultPre(self, clippy):
-        pass

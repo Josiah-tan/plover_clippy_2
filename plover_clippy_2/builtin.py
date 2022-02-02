@@ -1,8 +1,9 @@
-from .util import noNewOutput
+# from .util import noNewOutput
 from .state import State
 from .default import Defaults
 from .actions import Actions
 from .translations import Translations
+from .formatting import Formatting
 
 from .hooks.initialize import Initialize
 from .hooks.start import Start
@@ -10,6 +11,7 @@ from .hooks.stop import Stop
 from .hooks.translate import OnTranslate
 
 from plover.engine import StenoEngine
+# from plover.translation import Translation
 
 
 class Clippy:
@@ -22,7 +24,8 @@ class Clippy:
         self.engine: StenoEngine = engine
         self.state = State()
         self.actions = Actions(self.state)
-        self.translations = Translations(self)
+        self.translations = Translations()
+        self.formatting = Formatting()
 
         Defaults.init(self)
 
@@ -46,20 +49,24 @@ class Clippy:
         hook.post(self)
 
     def onTranslate(self, old, new):
-        hook = OnTranslate()
+        hook = OnTranslate(old, new)
         hook.pre(self)
-
-        if noNewOutput(new):
-            return
-
-        for phrase in self.translations.generator():
-
-            (
-                self.state.english,
-                self.state.stroked,
-                self.state.suggestions
-            ) = phrase
-
-            hook.call(self)
-
+        if hook.filter(self):
+            for phrase in hook.generator(self):
+                self.state.phrase = phrase
+                hook.suggest(self)
         hook.post(self)
+        # if noNewOutput(new):
+        #     return
+        # for phrase in self.translations.generator():
+        #
+        #     (
+        #         self.state.english,
+        #         self.state.stroked,
+        #         self.state.suggestions
+        #     ) = phrase
+        #     print(f"phrase = {phrase}")
+        #
+        #     hook.call(self)
+        #
+        # hook.post(self)
