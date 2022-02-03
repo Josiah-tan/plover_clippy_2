@@ -41,10 +41,6 @@ class FingerSpelling:
             res.append(translation_stack[i])
         return res
 
-        # translation_stack = self._translation_stack
-        # self._translation_stack = []
-        # return translation_stack
-
     def generator(self, obj, clippy):
         if self.available(clippy):
             phrase = self.getTranslationStack(clippy)

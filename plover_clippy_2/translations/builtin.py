@@ -2,6 +2,7 @@ from ..algos import tails
 from .org import Org
 from .retro import Retro
 from .finger_spelling import FingerSpelling
+from .undo import Undo
 
 
 class Translations:
@@ -9,6 +10,7 @@ class Translations:
         self.org = Org()
         self.retro = Retro()
         self.finger = FingerSpelling()
+        self.undo = Undo()
 
     def _generator(self, obj, clippy, translation_stack):
         last = None
@@ -32,6 +34,7 @@ class Translations:
                 obj, clippy, translation_stack[-last_num_translations:])
 
     def filter(self, obj, clippy):
+        undo = self.undo.filter(obj, clippy)
         fingerSpelling = self.finger.filter(obj, clippy)
         retro = self.retro.filter(obj, clippy)
-        return fingerSpelling and retro
+        return undo and fingerSpelling and retro
