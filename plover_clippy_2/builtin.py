@@ -9,6 +9,7 @@ from .hooks.initialize import Initialize
 from .hooks.start import Start
 from .hooks.stop import Stop
 from .hooks.translate import OnTranslate
+from .hooks.stroke import OnStroked
 
 from plover.engine import StenoEngine
 # from plover.translation import Translation
@@ -34,7 +35,9 @@ class Clippy:
     def start(self) -> None:
         hook = Start()
         hook.pre(self)
+        # this order can't be changed ;<
         self.engine.hook_connect('translated', self.onTranslate)
+        self.engine.hook_connect('stroked', self.onStroked)
         self.state.f = open(self.state.output_file_name, 'a')
 
         hook.post(self)
@@ -44,8 +47,18 @@ class Clippy:
         hook.pre(self)
 
         self.engine.hook_disconnect('translated', self.onTranslate)
+        self.engine.hook_disconnect('stroked', self.onStroked)
         self.state.f.close()
 
+        hook.post(self)
+
+    def onStroked(self, stroke):
+        if not self.engine.output:
+            return
+        hook = OnStroked(stroke)
+        hook.pre(self)
+        print(self.state.prev_stroke)
+        # not sure what else to do here for now
         hook.post(self)
 
     def onTranslate(self, old, new):
