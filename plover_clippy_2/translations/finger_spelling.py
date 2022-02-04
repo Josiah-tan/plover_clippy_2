@@ -6,6 +6,7 @@ class FingerSpelling:
         # self._translation_stack = []
         self.was_finger_spelling = False
         self.retro = Retro()
+        self.blocking = True
 
     @staticmethod
     def isFingerSpelling(translation):

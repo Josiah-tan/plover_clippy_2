@@ -11,6 +11,7 @@ class Undo:
         self.was_undo = False
         # self.retro = Retro()
         self.cache = None
+        self.blocking = True
 
     @staticmethod
     def isUndoStroke(new, old):

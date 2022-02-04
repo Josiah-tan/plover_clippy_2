@@ -3,8 +3,12 @@ from ..algos import tails
 
 
 class Retro:
+    def __init__(self):
+        self.blocking = False
+
     def getEnglish(self, phrase):
-        return ''.join(RetroFormatter(phrase).last_fragments(999))
+        # tapey-tape hack with 0 meaning get all fragments
+        return ''.join(RetroFormatter(phrase).last_fragments(0))
 
     def getStroked(self, phrase):
         return [y for x in phrase for y in x.rtfcre]
@@ -19,8 +23,12 @@ class Retro:
 
     def generator(self, obj, clippy):
         last = None
+        last_num_translations = clippy.state.last_num_translations
+        # for phrase in tails(
+        #         clippy.engine.translator_state.translations[-10:]):
         for phrase in tails(
-                clippy.engine.translator_state.translations[-10:]):
+                clippy.engine.translator_state.translations[
+                    -last_num_translations:]):
             english = self.getEnglish(phrase)
             if english == last:
                 continue
