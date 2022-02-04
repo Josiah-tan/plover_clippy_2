@@ -22,7 +22,9 @@ class FingerSpelling:
             return True
 
     def available(self, clippy):
-        if self.was_finger_spelling:
+        if (
+                self.was_finger_spelling
+                and not clippy.state.prev_stroke.is_correction):
             self.was_finger_spelling = False
             # return len(self._translation_stack) > 0
             return len(clippy.engine.translator_state.translations) >= 2
