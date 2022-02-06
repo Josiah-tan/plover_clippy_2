@@ -48,7 +48,13 @@ class FingerSpelling:
     def generator(self, obj, clippy):
         if self.available(clippy):
             translation_stack = self.getTranslationStack(clippy)
-            yield from self.retro._generator(obj, clippy, translation_stack)
+            phrases = self.retro._generator(obj, clippy, translation_stack)
+            best = None
+            for phrase in phrases:
+                if (best is None
+                        or len(phrase["english"]) > len(best["english"])):
+                    best = phrase
+            yield best
             # phrase = self.getTranslationStack(clippy)
             # english = self.retro.getEnglish(phrase)
             # stroked = self.retro.getStroked(phrase)
