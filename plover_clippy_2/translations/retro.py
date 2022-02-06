@@ -21,14 +21,11 @@ class Retro:
                     lis.append(y)
         return lis
 
-    def generator(self, obj, clippy):
+    def _generator(self, obj, clippy, translation_stack):
         last = None
-        last_num_translations = clippy.state.last_num_translations
         # for phrase in tails(
         #         clippy.engine.translator_state.translations[-10:]):
-        for phrase in tails(
-                clippy.engine.translator_state.translations[
-                    -last_num_translations:]):
+        for phrase in tails(translation_stack):
             english = self.getEnglish(phrase)
             if english == last:
                 continue
@@ -39,6 +36,13 @@ class Retro:
                 yield {"english": english,
                        "stroked": stroked,
                        "suggestions": suggestions}
+
+    def generator(self, obj, clippy):
+        last_num_translations = clippy.state.last_num_translations
+        translations = clippy.engine.translator_state.translations
+        yield from self._generator(
+                obj, clippy,
+                translations[-last_num_translations:])
 
     def filter(self, obj, clippy):
         for a in reversed(obj.new):

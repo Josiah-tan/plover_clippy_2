@@ -35,7 +35,8 @@ class FingerSpelling:
         translation_stack = clippy.engine.translator_state.translations
         start = end = len(translation_stack) - 1
         while start >= 1:
-            if self.isFingerSpelling(translation_stack[start-1]):
+            if (self.isFingerSpelling(translation_stack[start-1]) or
+                    end - start < clippy.state.last_num_translations):
                 start -= 1
             else:
                 break
@@ -46,11 +47,13 @@ class FingerSpelling:
 
     def generator(self, obj, clippy):
         if self.available(clippy):
-            phrase = self.getTranslationStack(clippy)
-            english = self.retro.getEnglish(phrase)
-            stroked = self.retro.getStroked(phrase)
-            suggestions = self.retro.getSuggestions(clippy, english, stroked)
-            if suggestions:
-                yield {"english": english,
-                       "stroked": stroked,
-                       "suggestions": suggestions}
+            translation_stack = self.getTranslationStack(clippy)
+            yield from self.retro._generator(obj, clippy, translation_stack)
+            # phrase = self.getTranslationStack(clippy)
+            # english = self.retro.getEnglish(phrase)
+            # stroked = self.retro.getStroked(phrase)
+            # suggestions = self.retro.getSuggestions(clippy, english, stroked)
+            # if suggestions:
+            #     yield {"english": english,
+            #            "stroked": stroked,
+            #            "suggestions": suggestions}
