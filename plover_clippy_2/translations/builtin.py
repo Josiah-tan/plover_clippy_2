@@ -1,17 +1,19 @@
-from ..algos import tails
+# from ..algos import tails
 from .org import Org
 from .retro import Retro
 from .finger_spelling import FingerSpelling
 from .undo import Undo
+from .tk_fps import TKFPS
 
 
 class Translations:
     def __init__(self):
         self.org = Org()
-        self.retro = Retro()
-        self.finger = FingerSpelling()
-        self.undo = Undo()
-        self.sources = [self.undo, self.finger, self.retro]
+        # self.retro = Retro()
+        # self.finger = FingerSpelling()
+        # self.undo = Undo()
+        # self.sources = [self.undo, self.finger, self.retro, TKFPS()]
+        self.sources = [Undo(), FingerSpelling(), Retro(), TKFPS()]
         self._filter = None
 
     # def _generator(self, obj, clippy, translation_stack):
