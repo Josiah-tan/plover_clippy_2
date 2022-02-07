@@ -54,7 +54,8 @@ class FingerSpelling:
                 if (best is None
                         or len(phrase["english"]) > len(best["english"])):
                     best = phrase
-            yield best
+            if best:
+                yield best
             # phrase = self.getTranslationStack(clippy)
             # english = self.retro.getEnglish(phrase)
             # stroked = self.retro.getStroked(phrase)
