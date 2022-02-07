@@ -13,6 +13,11 @@ class TKFPS:
         self.retro = Retro()
 
     def filter(self, obj, clippy):
+        """
+        when TK-FPS pressed,
+        top of translation stack goes from ["type", "writer"]
+        -> ["type{^~|^}writer"]
+        """
         translation_stack = clippy.engine.translator_state.translations
         len_translation_stack = len(translation_stack)
         res = (
@@ -25,6 +30,11 @@ class TKFPS:
         return res
 
     def getStroked(self, phrase):
+        """
+        same thing as retro.getStroked,
+        just convert ["TK-FPS"]
+        -> ["type", "writer", "TKFPS"]
+        """
         lis = []
         for x in phrase:
             if x.rtfcre == self.stroke:
