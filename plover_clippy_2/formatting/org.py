@@ -39,6 +39,18 @@ class Org:
                 f' {english:{max_pad_english}} '
                 f'{suggestions} < {stroked}')
 
+    def debugSuggest(self, obj, clippy):
+        (
+                suggestions, stroked, english,
+                efficiency_symbol, max_pad_efficiency,
+                max_pad_english
+                ) = self.format(obj, clippy)
+        return clippy.actions.add(
+                f'{efficiency_symbol:{max_pad_efficiency}}'
+                f' {english:{max_pad_english}} '
+                f'{suggestions} < {stroked}: '
+                f'{clippy.state.phrase["source"]}')
+
     def minimalSuggest(self, obj, clippy):
         (
                 suggestions, stroked, english,

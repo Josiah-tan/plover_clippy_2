@@ -42,7 +42,11 @@ class Translations:
 
         for idx, source in enumerate(self.sources):
             if hasattr(source, "generator") and self._filter[idx]:
-                yield from source.generator(obj, clippy)
+                for gen in source.generator(obj, clippy):
+                    gen["source"] = source.__class__.__name__
+                    yield gen
+                # yield from source.generator(obj, clippy)
+
 
     def filter(self, obj, clippy):
         # undo = self.undo.filter(obj, clippy)
