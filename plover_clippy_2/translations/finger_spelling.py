@@ -10,6 +10,7 @@ class FingerSpelling:
 
     @staticmethod
     def isFingerSpelling(translation):
+        # note pressing #left once keeps glue operator???
         return any(action.glue for action in translation.formatting)
 
     def filter(self, obj, clippy):

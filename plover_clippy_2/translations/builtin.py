@@ -47,7 +47,6 @@ class Translations:
                     yield gen
                 # yield from source.generator(obj, clippy)
 
-
     def filter(self, obj, clippy):
         # undo = self.undo.filter(obj, clippy)
         # fingerSpelling = self.finger.filter(obj, clippy)

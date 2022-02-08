@@ -48,8 +48,8 @@ class Org:
         return clippy.actions.add(
                 f'{efficiency_symbol:{max_pad_efficiency}}'
                 f' {english:{max_pad_english}} '
-                f'{suggestions} < {stroked}: '
-                f'{clippy.state.phrase["source"]}')
+                f'{suggestions} < {stroked}  '
+                f'# {clippy.state.phrase["source"]}')
 
     def minimalSuggest(self, obj, clippy):
         (
