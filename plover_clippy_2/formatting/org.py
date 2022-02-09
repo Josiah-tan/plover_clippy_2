@@ -59,6 +59,6 @@ class Org:
                 ) = self.format(obj, clippy)
         return clippy.actions.add(
                 f'{efficiency_symbol:{max_pad_efficiency}}'
-                f'{english:{max_pad_english}} '
+                f' {english:{max_pad_english}} '
                 f'{suggestions}'
                 )
