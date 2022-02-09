@@ -140,9 +140,9 @@ plover -s plover_plugins install -e .
     *     you are         *UR, R*U
     ```
 
-### Suggestion sources
-
-  - TODO
+3.  Suggestion sources
+    
+      - TODO
 
 ## File viewing
 

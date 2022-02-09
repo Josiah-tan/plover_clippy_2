@@ -74,7 +74,7 @@ you are         *UR, R*U
 #+BEGIN_SRC org
 *     you are         *UR, R*U
 #+END_SRC
-*** Suggestion sources
+**** Suggestion sources
 - TODO
 ** File viewing
 - well obviously you can open up the file and take a look, but what if you want to have a live view while training?
