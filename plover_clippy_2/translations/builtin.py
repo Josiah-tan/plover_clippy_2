@@ -1,34 +1,22 @@
 # from ..algos import tails
 from .org import Org
-from .retro import Retro
-from .finger_spelling import FingerSpelling
-from .undo import Undo
-from .tk_fps import TKFPS
+from .source import Sources
 
 
 class Translations:
     def __init__(self):
         self.org = Org()
+
+        # available suggestion sources
         # self.retro = Retro()
         # self.finger = FingerSpelling()
         # self.undo = Undo()
-        # self.sources = [self.undo, self.finger, self.retro, TKFPS()]
-        self.sources = [Undo(), FingerSpelling(), Retro(), TKFPS()]
-        self._filter = None
+        # self.tkfps = TKFPS()
 
-    # def _generator(self, obj, clippy, translation_stack):
-    #     last = None
-    #     for phrase in tails(translation_stack):
-    #         english = self.retro.getEnglish(phrase)
-    #         if english == last:
-    #             continue
-    #         last = english
-    #         stroked = self.retro.getStroked(phrase)
-    #         suggestions = self.retro.getSuggestions(clippy, english, stroked)
-    #         if suggestions:
-    #             yield {"english": english,
-    #                    "stroked": stroked,
-    #                    "suggestions": suggestions}
+        self.sources = Sources()
+        # self.sources = [self.undo, self.finger, self.retro, TKFPS()]
+        # self.sources.set(Undo, FingerSpelling, Retro, TKFPS)
+        self._filter = None
 
     def generator(self, obj, clippy):
         # translation_stack = clippy.engine.translator_state.translations
@@ -40,7 +28,7 @@ class Translations:
         # yield from self._generator(
         #         obj, clippy, translation_stack[-last_num_translations:])
 
-        for idx, source in enumerate(self.sources):
+        for idx, source in enumerate(self.sources.get()):
             if hasattr(source, "generator") and self._filter[idx]:
                 for gen in source.generator(obj, clippy):
                     gen["source"] = source.__class__.__name__
@@ -54,8 +42,8 @@ class Translations:
         # return undo and fingerSpelling and retro
 
         res = False
-        self._filter = [False] * len(self.sources)
-        for idx, source in enumerate(self.sources):
+        self._filter = [False] * len(self.sources.get())
+        for idx, source in enumerate(self.sources.get()):
             if hasattr(source, "filter"):
                 if source.filter(obj, clippy):
                     res = True
@@ -63,3 +51,4 @@ class Translations:
                 elif source.blocking:
                     return False
         return res
+

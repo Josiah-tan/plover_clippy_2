@@ -21,6 +21,16 @@ class Defaults:
         return obj.org.defaultPre(clippy)
 
     @staticmethod
+    def start(clippy):
+        clippy.translations.sources.set(
+                "Undo", "FingerSpelling", "Retro", "TKFPS")
+
+        # for testing purposes
+        # clippy.translations.sources.set("FingerSpelling")
+        # clippy.translations.sources.append("Retro", "TKFPS")
+        # clippy.translations.sources.prepend("Undo")
+
+    @staticmethod
     def startPost(obj, clippy):
         return obj.org.defaultPost(clippy)
 

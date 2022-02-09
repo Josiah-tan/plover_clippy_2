@@ -40,6 +40,8 @@ class Clippy:
         self.engine.hook_connect('stroked', self.onStroked)
         self.state.f = open(self.state.output_file_name, 'a')
 
+        Defaults.start(self)
+
         hook.post(self)
 
     def stop(self) -> None:
