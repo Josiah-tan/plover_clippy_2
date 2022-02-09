@@ -61,6 +61,7 @@ plover -s plover_plugins install -e .
         clippy.state.efficiency_symbol = "*"
         clippy.state.max_pad_efficiency = 5
         clippy.state.max_pad_english = 15
+            clippy.state.last_num_translations = 10
     ```
     
       - output\_file\_name: name of the output file, directory location
@@ -71,7 +72,77 @@ plover -s plover_plugins install -e .
         that are allowed to be displayed
       - max\_pad\_english: the maximum amount of space padding for
         English translations
-      - initPost executes after this plugin initializes itself
+      - last\_num\_translations: these number of translations are used
+        to give suggestions
+      - note: initPost executes after this plugin initializes itself
+
+2.  Suggestion styles
+    
+      - Below are some suggestion styles
+          - the default style \`org.defaultSuggest\` is uncommented
+    
+    <!-- end list -->
+    
+    ``` python
+    def onTranslateSuggest(obj, clippy):
+        clippy.formatting.org.defaultSuggest(obj, clippy)
+        # clippy.formatting.minimalSuggest(obj, clippy)
+        # clippy.formatting.retro.suggest(obj, clippy)
+        # clippy.formatting.org.debugSuggest(obj, clippy)
+        # clippy.formatting.org.minimalSuggest(obj, clippy)
+    ```
+    
+      - note: onTranslateSuggest gets called when suggestions are
+        available
+      - feel free to make your own suggestion styles (see
+        formatting/org.py for coded examples)
+          - note that \`self\` refers to different things, for example,
+            in formatting/org.py fit is equivalent to
+            \`clippy.formatting.org\`
+      - org.defaultSuggest:
+    
+    <!-- end list -->
+    
+    ``` org
+    *     you are         *UR, R*U < KPWR/-R
+    ```
+    
+      - minimalSuggest:
+    
+    <!-- end list -->
+    
+    ``` org
+    you are         *UR, R*U
+    ```
+    
+      - retro.suggest: same as the original plugin
+    
+    <!-- end list -->
+    
+    ``` org
+    [2022-02-09 22:29:47] you are         || KPWR/-R -> *UR, R*U
+    ```
+    
+      - org.debugSuggest: same as org.defaultSuggest, but nice for
+        figuring out which suggestion source the suggestion came from
+    
+    <!-- end list -->
+    
+    ``` org
+    *     you are         *UR, R*U < KPWR/-R  # Retro
+    ```
+    
+      - org.minimalSuggest: minimal required for org syntax highlighting
+    
+    <!-- end list -->
+    
+    ``` org
+    *     you are         *UR, R*U
+    ```
+
+### Suggestion sources
+
+  - TODO
 
 ## File viewing
 

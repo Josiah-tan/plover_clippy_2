@@ -32,12 +32,50 @@ def initPost(obj, clippy):
     clippy.state.efficiency_symbol = "*"
     clippy.state.max_pad_efficiency = 5
     clippy.state.max_pad_english = 15
+		clippy.state.last_num_translations = 10
 #+END_SRC
 - output_file_name: name of the output file, directory location will default to config directory
 - efficiency_symbol: any one character symbol used to denote how many strokes can be saved
 - max_pad_efficiency: the maximum number of efficiency symbols that are allowed to be displayed
 - max_pad_english: the maximum amount of space padding for English translations
-- initPost executes after this plugin initializes itself
+- last_num_translations: these number of translations are used to give suggestions
+- note: initPost executes after this plugin initializes itself
+**** Suggestion styles
+- Below are some suggestion styles
+	- the default style `org.defaultSuggest` is uncommented
+#+BEGIN_SRC python
+def onTranslateSuggest(obj, clippy):
+    clippy.formatting.org.defaultSuggest(obj, clippy)
+    # clippy.formatting.minimalSuggest(obj, clippy)
+    # clippy.formatting.retro.suggest(obj, clippy)
+    # clippy.formatting.org.debugSuggest(obj, clippy)
+    # clippy.formatting.org.minimalSuggest(obj, clippy)
+#+END_SRC
+- note: onTranslateSuggest gets called when suggestions are available
+- feel free to make your own suggestion styles (see formatting/org.py for coded examples)
+	- note that `self` refers to different things, for example, in formatting/org.py fit is equivalent to `clippy.formatting.org`
+- org.defaultSuggest:
+#+BEGIN_SRC org
+*     you are         *UR, R*U < KPWR/-R
+#+END_SRC
+- minimalSuggest:
+#+BEGIN_SRC org
+you are         *UR, R*U
+#+END_SRC
+- retro.suggest: same as the original plugin
+#+BEGIN_SRC org
+[2022-02-09 22:29:47] you are         || KPWR/-R -> *UR, R*U
+#+END_SRC
+- org.debugSuggest: same as org.defaultSuggest, but nice for figuring out which suggestion source the suggestion came from
+#+BEGIN_SRC org
+*     you are         *UR, R*U < KPWR/-R  # Retro
+#+END_SRC
+- org.minimalSuggest: minimal required for org syntax highlighting
+#+BEGIN_SRC org
+*     you are         *UR, R*U
+#+END_SRC
+*** Suggestion sources
+- TODO
 ** File viewing
 - well obviously you can open up the file and take a look, but what if you want to have a live view while training?
 *** Terminal
