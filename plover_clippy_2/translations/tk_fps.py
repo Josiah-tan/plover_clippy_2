@@ -1,7 +1,7 @@
 from .retro import Retro
 
 
-class TKFPS:
+class Tkfps:
     """
     suggestion source for TK-FPS (retrospective delete space)
     """
@@ -33,7 +33,7 @@ class TKFPS:
         """
         same thing as retro.getStroked,
         just convert ["TK-FPS"]
-        -> ["type", "writer", "TKFPS"]
+        -> ["type", "writer", "TK-FPS"]
         """
         lis = []
         for x in phrase:

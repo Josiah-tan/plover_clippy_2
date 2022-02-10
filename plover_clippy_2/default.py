@@ -23,11 +23,11 @@ class Defaults:
     @staticmethod
     def start(clippy):
         clippy.translations.sources.set(
-                "Undo", "FingerSpelling", "Retro", "TKFPS")
+                "Undo", "FingerSpelling", "Retro", "Tkfps")
 
         # for testing purposes
         # clippy.translations.sources.set("FingerSpelling")
-        # clippy.translations.sources.append("Retro", "TKFPS")
+        # clippy.translations.sources.append("Retro", "Tkfps")
         # clippy.translations.sources.prepend("Undo")
 
     @staticmethod

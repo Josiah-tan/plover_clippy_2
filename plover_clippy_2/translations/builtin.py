@@ -11,11 +11,11 @@ class Translations:
         # self.retro = Retro()
         # self.finger = FingerSpelling()
         # self.undo = Undo()
-        # self.tkfps = TKFPS()
+        # self.tkfps = Tkfps()
 
         self.sources = Sources()
-        # self.sources = [self.undo, self.finger, self.retro, TKFPS()]
-        # self.sources.set(Undo, FingerSpelling, Retro, TKFPS)
+        # self.sources = [self.undo, self.finger, self.retro, Tkfps()]
+        # self.sources.set(Undo, FingerSpelling, Retro, Tkfps)
         self._filter = None
 
     def generator(self, obj, clippy):

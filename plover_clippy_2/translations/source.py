@@ -1,12 +1,12 @@
 from .retro import Retro
 from .finger_spelling import FingerSpelling
 from .undo import Undo
-from .tk_fps import TKFPS
+from .tk_fps import Tkfps
 
 
 class Sources:
     def __init__(self, val=None):
-        self._cls_available = [Undo, FingerSpelling, Retro, TKFPS]
+        self._cls_available = [Undo, FingerSpelling, Retro, Tkfps]
         self._str_available = self.str(self._cls_available)
         self._sources = None
 
@@ -42,5 +42,5 @@ class Sources:
 # i.append("Org")
 # i.prepend("Undo", "FingerSpelling")
 # i.get()
-# i.append("TKFPS")
+# i.append("Tkfps")
 # i.get()
