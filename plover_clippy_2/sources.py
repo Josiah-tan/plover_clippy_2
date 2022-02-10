@@ -1,14 +1,8 @@
-from .retro import Retro
-from .finger_spelling import FingerSpelling
-from .undo import Undo
-from .tk_fps import Tkfps
-
-
 class Sources:
-    def __init__(self, val=None):
-        self._cls_available = [Undo, FingerSpelling, Retro, Tkfps]
+    def __init__(self, cls_available):
+        self._cls_available = cls_available
         self._str_available = self.str(self._cls_available)
-        self._sources = None
+        self._sources = []
 
     def str(self, sources):
         res = []
@@ -22,9 +16,25 @@ class Sources:
     def set(self, *val):
         self._sources = ()
         for source in val:
+            args = ()
+            kwargs = {}
             if type(source) == str:
                 source = self._cls_available[self._str_available.index(source)]
-            self._sources += (source(),)
+            elif hasattr(source, "__iter__"):
+                assert len(source) <= 3
+                for item in source:
+                    if type(item) == str:
+                        _source = self._cls_available[
+                                self._str_available.index(item)]
+                    elif isinstance(item, dict):
+                        kwargs = item
+                    else:
+                        args = item
+                source = _source
+            if callable(source):
+                self._sources += (source(*args, **kwargs),)
+            else:
+                self._sources += (source,)
 
     def append(self, *val):
         sources = self.get()

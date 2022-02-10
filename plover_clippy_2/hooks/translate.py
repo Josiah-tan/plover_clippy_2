@@ -26,6 +26,12 @@ class OnTranslate:
         else:
             Defaults.onTranslateSuggest(self, clippy)
 
+    def distill(self, clippy):
+        if hasattr(Config, "onTranslateDistill"):
+            return Config.onTranslateDistill(self, clippy)
+        else:
+            return Defaults.onTranslateDistill(self, clippy)
+
     def post(self, clippy):
         if hasattr(Config, "onTranslatePost"):
             Config.onTranslatePost(self, clippy)

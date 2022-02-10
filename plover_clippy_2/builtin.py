@@ -3,6 +3,7 @@ from .state import State
 from .default import Defaults
 from .actions import Actions
 from .translations import Translations
+from .distillations import Distillations
 from .formatting import Formatting
 
 from .hooks.initialize import Initialize
@@ -26,6 +27,7 @@ class Clippy:
         self.state = State()
         self.actions = Actions(self.state)
         self.translations = Translations()
+        self.distillations = Distillations()
         self.formatting = Formatting()
 
         Defaults.init(self)
@@ -69,7 +71,9 @@ class Clippy:
         if hook.filter(self):
             for phrase in hook.generator(self):
                 self.state.phrase = phrase
-                hook.suggest(self)
+                # hook.suggest(self)
+                if hook.distill(self):
+                    hook.suggest(self)
         hook.post(self)
         # if noNewOutput(new):
         #     return

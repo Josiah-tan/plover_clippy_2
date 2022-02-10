@@ -25,6 +25,9 @@ class Defaults:
         clippy.translations.sources.set(
                 "Undo", "FingerSpelling", "Retro", "Tkfps")
 
+        clippy.distillations.sources.set(
+                ["Repeat", {"num": 1}])
+
         # for testing purposes
         # clippy.translations.sources.set("FingerSpelling")
         # clippy.translations.sources.append("Retro", "Tkfps")
@@ -58,6 +61,10 @@ class Defaults:
     def onTranslateFilter(obj, clippy):
         # return clippy.translations.retro.filter(obj, clippy)
         return clippy.translations.filter(obj, clippy)
+
+    @staticmethod
+    def onTranslateDistill(obj, clippy):
+        return clippy.distillations.distill(obj, clippy)
 
     @staticmethod
     def onTranslateGenerator(obj, clippy):

@@ -1,6 +1,12 @@
+from .retro import Retro
+from .finger_spelling import FingerSpelling
+from .undo import Undo
+from .tk_fps import Tkfps
+
+
 # from ..algos import tails
 from .org import Org
-from .source import Sources
+from ..sources import Sources
 
 
 class Translations:
@@ -13,7 +19,7 @@ class Translations:
         # self.undo = Undo()
         # self.tkfps = Tkfps()
 
-        self.sources = Sources()
+        self.sources = Sources([Undo, FingerSpelling, Retro, Tkfps])
         # self.sources = [self.undo, self.finger, self.retro, Tkfps()]
         # self.sources.set(Undo, FingerSpelling, Retro, Tkfps)
         self._filter = None
