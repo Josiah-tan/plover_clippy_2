@@ -26,7 +26,8 @@ class Defaults:
                 "Undo", "FingerSpelling", "Retro", "Tkfps")
 
         clippy.distillations.sources.set(
-                ["Repeat", {"num": 1}])
+                ["Repeat", {"num": 1}],
+                ["Strokes", {"max": 3, "multi_max": 3}])
 
         # for testing purposes
         # clippy.translations.sources.set("FingerSpelling")
