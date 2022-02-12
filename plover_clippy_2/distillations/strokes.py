@@ -2,7 +2,7 @@ class Strokes:
     """
     stroke suggestion filter
     max: the maximum number of suggestions allowed
-    multi_max: the maximum number of suggestions allowed for each multistroke number
+    multi_max: the maximum number of suggestions allowed for each multistroke
     """
 
     def __init__(self, max=3, multi_max=3):

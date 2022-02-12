@@ -47,6 +47,11 @@ class Translations:
         # retro = self.retro.filter(obj, clippy)
         # return undo and fingerSpelling and retro
 
+        # case when translation stack is empty
+        translation_stack = clippy.engine.translator_state.translations
+        if not translation_stack:
+            return False
+
         res = False
         self._filter = [False] * len(self.sources.get())
         for idx, source in enumerate(self.sources.get()):
