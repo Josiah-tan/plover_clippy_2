@@ -142,6 +142,23 @@ plover -s plover_plugins install -e .
 
 3.  Suggestion sources
     
+      - The suggestions come from different sources, and you can choose
+        which sources to include\!\!\!
+          - Listed below are the defaults
+    
+    <!-- end list -->
+    
+    ``` python
+    clippy.translations.sources.set("Undo", "FingerSpelling", "Retro", "Tkfps")
+    ```
+    
+      - see [Suggestion Sources](docs.org::*Suggestion%20Sources) for a
+        more information on what each source does
+      - see [Sources](docs.org::*Sources) for other methods like
+        "append" and "prepend"
+
+4.  distillation sources
+    
       - TODO
 
 ## File viewing

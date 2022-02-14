@@ -1,2 +1,18 @@
-* [[file:plover_clippy_2/sources.py][sources]]
-- experiment here
+* Sources
+** Brief Description
+- A library for custom sources
+- Used by both [[*Suggestion Sources][Suggestion Sources]] and
+** Methods
+*** Set
+- This method overrides any sources provided with a new list of sources
+**** Examples
+- Listed below are the defaults
+#+BEGIN_SRC python
+clippy.translations.sources.set("Undo", "FingerSpelling", "Retro", "Tkfps")
+#+END_SRC
+*** Append
+- This method adds to the right of the list
+	- Generally used for more "non-blocking" sources
+** Source Code
+- You can find the source code [[file:plover_clippy_2/sources.py][here]]
+* Suggestion Sources
