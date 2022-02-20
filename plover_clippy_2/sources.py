@@ -46,6 +46,21 @@ class Sources:
         self.set(*val)
         self._sources = self.get() + sources
 
+    def wrapColor(self, obj, clippy, string):
+        for source in self.get():
+            if hasattr(source, "preprocess"):
+                source.preprocess(obj, clippy)
+            if hasattr(source, "addColor"):
+                source.addColor(obj, clippy)
+            if hasattr(source, string):
+                # source.format(obj, clippy)
+                getattr(source, string)(obj, clippy)
+            if hasattr(source, "extraColor"):
+                source.extraColor(obj, clippy)
+            if source.output:
+                clippy.actions.add(source.output)
+
+
 # i = Sources()
 # i.set("Retro")
 # i.get()
