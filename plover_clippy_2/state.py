@@ -10,6 +10,11 @@ class State:
         self._max_pad_efficiency = None
         self._max_pad_english = None
         self._f = None
+        self._justify = None
+
+        self.phrase = None
+        # self.gruvbox_colors = None
+        self.colors = None
 
     @property
     def output_file_name(self):
@@ -58,3 +63,16 @@ class State:
     def f(self, val):
         assert isinstance(val, IOBase)
         self._f = val
+
+    @property
+    def justify(self):
+        return self._justify
+
+    @justify.setter
+    def justify(self, val):
+        if type(val) == str:
+            if val in "left":
+                val = str.ljust
+            elif val in "right":
+                val = str.rjust
+        self._justify = val

@@ -9,7 +9,23 @@ class Defaults:
         clippy.state.efficiency_symbol = "*"
         clippy.state.max_pad_efficiency = 5
         clippy.state.max_pad_english = 15
+        clippy.state.justify = "left"
         clippy.state.last_num_translations = 10
+
+        clippy.state.colors = {
+                "suggestions": "neutral_aqua",
+                "stroked": "neutral_purple",
+                "english": "neutral_orange",
+                "efficiency_symbol": lambda efficiency_symbol: [
+                    "bright_green", "bright_purple", "bright_blue",
+                    "bright_orange", "bright_red"
+                    ][min(len(efficiency_symbol.strip())-1, 4)],
+                "*": "gray",
+                ">": "gray",
+                # "pad_efficiency": background support needed
+                # "pad_english": background
+                "source": "gray"
+                }
 
     @staticmethod
     def initPost(obj, clippy):
@@ -28,6 +44,9 @@ class Defaults:
         clippy.distillations.sources.set(
                 ["Repeat", {"num": 1}],
                 ["Strokes", {"max": 3, "multi_max": 3}])
+
+        clippy.formatting.sources.set(
+                ["Org", {"colorscheme": "gruvbox", "mode": "defaultSuggest"}])
 
         # for testing purposes
         # clippy.translations.sources.set("FingerSpelling")
@@ -52,7 +71,8 @@ class Defaults:
 
     @staticmethod
     def onTranslateSuggest(obj, clippy):
-        return clippy.formatting.org.defaultSuggest(obj, clippy)
+        # return clippy.formatting.org.defaultSuggest(obj, clippy)
+        return clippy.formatting.suggest(obj, clippy)
 
     @staticmethod
     def onTranslatePost(obj, clippy):
