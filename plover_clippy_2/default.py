@@ -13,6 +13,7 @@ class Defaults:
         clippy.state.last_num_translations = 10
 
         clippy.state.colors = {
+                # for formatting
                 "suggestions": "neutral_aqua",
                 "stroked": "neutral_purple",
                 "english": "neutral_orange",
@@ -20,12 +21,25 @@ class Defaults:
                     "bright_green", "bright_purple", "bright_blue",
                     "bright_orange", "bright_red"
                     ][min(len(efficiency_symbol.strip())-1, 4)],
-                "*": "gray",
-                ">": "gray",
-                # "pad_efficiency": background support needed
-                # "pad_english": background
-                "source": "gray"
+                "source": "gray",
+                # "*": "gray", # not implemented
+                # ">": "gray",
+                # for extremities
+                "START": "bright_green",
+                "STOP": "bright_red",
+                "date": "neutral_aqua",
+                # "-": "bright_blue",
                 }
+
+        clippy.extremity.start_pre_sources.set(
+                ["Start", {
+                    "colorscheme": "gruvbox",
+                    "mode": "defaultPre"}])
+
+        clippy.extremity.stop_pre_sources.set(
+                ["Stop", {
+                    "colorscheme": "gruvbox",
+                    "mode": "defaultPre"}])
 
     @staticmethod
     def initPost(obj, clippy):
@@ -33,37 +47,43 @@ class Defaults:
         # return obj.org.defaultPost(clippy)
 
     @staticmethod
-    def startPre(obj, clippy):
-        return obj.org.defaultPre(clippy)
-
-    @staticmethod
     def start(clippy):
         clippy.translations.sources.set(
                 "Undo", "FingerSpelling", "Retro", "Tkfps")
-
-        clippy.distillations.sources.set(
-                ["Repeat", {"num": 1}],
-                ["Strokes", {"max": 3, "multi_max": 3}])
-
-        clippy.formatting.sources.set(
-                ["Org", {"colorscheme": "gruvbox", "mode": "defaultSuggest"}])
 
         # for testing purposes
         # clippy.translations.sources.set("FingerSpelling")
         # clippy.translations.sources.append("Retro", "Tkfps")
         # clippy.translations.sources.prepend("Undo")
 
+        clippy.distillations.sources.set(
+                ["Repeat", {"num": 1}],
+                ["Strokes", {"max": 3, "multi_max": 3}])
+
+        clippy.formatting.sources.set(
+                ["Org", {
+                    "colorscheme": "gruvbox",
+                    "mode": "defaultSuggest"}])
+
+    @staticmethod
+    def startPre(obj, clippy):
+        # return obj.org.defaultPre(clippy)
+        return clippy.extremity.startPre(obj, clippy)
+
     @staticmethod
     def startPost(obj, clippy):
-        return obj.org.defaultPost(clippy)
+        # return obj.org.defaultPost(clippy)
+        return clippy.extremity.startPost(obj, clippy)
 
     @staticmethod
     def stopPre(obj, clippy):
-        return obj.org.defaultPre(clippy)
+        # return obj.org.defaultPre(clippy)
+        return clippy.extremity.stopPre(obj, clippy)
 
     @staticmethod
     def stopPost(obj, clippy):
-        return obj.org.defaultPost(clippy)
+        # return obj.org.defaultPost(clippy)
+        return clippy.extremity.stopPost(obj, clippy)
 
     @staticmethod
     def onTranslatePre(obj, clippy):

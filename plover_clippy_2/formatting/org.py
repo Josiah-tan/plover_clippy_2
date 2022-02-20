@@ -51,7 +51,6 @@ class Org(Color):
                 f'{efficiency_symbol}'
                 f' {english} '
                 f'{suggestions} < {stroked}')
-        print(self.output)
 
     def debugSuggest(self, obj, clippy):
         stroked = self.stroked

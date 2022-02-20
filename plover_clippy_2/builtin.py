@@ -4,6 +4,7 @@ from .actions import Actions
 from .translations import Translations
 from .distillations import Distillations
 from .formatting import Formatting
+from .extremity import Extremity
 
 from .hooks.initialize import Initialize
 from .hooks.start import Start
@@ -28,6 +29,7 @@ class Clippy:
         self.translations = Translations()
         self.distillations = Distillations()
         self.formatting = Formatting()
+        self.extremity = Extremity()
 
         Defaults.init(self)
 
@@ -60,7 +62,7 @@ class Clippy:
             return
         hook = OnStroked(stroke)
         hook.pre(self)
-        print(self.state.prev_stroke)
+        # print(self.state.prev_stroke)
         # not sure what else to do here for now
         hook.post(self)
 

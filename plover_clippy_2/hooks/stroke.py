@@ -6,7 +6,6 @@ from ..default import Defaults
 class Org:
     def defaultPre(self, obj, clippy):
         clippy.state.prev_stroke = obj.stroke
-        print(clippy.state.prev_stroke)
 
     def defaultPost(self, obj, clippy):
         pass

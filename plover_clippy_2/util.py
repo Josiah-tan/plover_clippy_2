@@ -14,4 +14,4 @@ def noNewOutput(new):
 
 
 def getOrgDate():
-    return datetime.now().strftime("%Y-%m-%d %a %H:%M")
+    return f"<{datetime.now().strftime('%Y-%m-%d %a %H:%M')}>"
