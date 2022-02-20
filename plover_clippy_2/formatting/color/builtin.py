@@ -9,7 +9,7 @@ class Color:
 
         self.pallete = self.getPallete(self.colorscheme)
 
-    def getPallete(self, colorscheme):
+    def getPallete(self, colorscheme="gruvbox"):
         if colorscheme == "gruvbox":
             return gruvbox
 
