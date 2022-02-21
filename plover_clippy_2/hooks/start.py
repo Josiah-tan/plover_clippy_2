@@ -1,5 +1,5 @@
 from ..util import getOrgDate
-from ..config import Config
+from ..config import config
 from ..default import Defaults
 
 
@@ -17,13 +17,13 @@ class Start:
         self.org = Org()
 
     def pre(self, clippy):
-        if hasattr(Config, "startPre"):
-            Config.startPre(self, clippy)
+        if hasattr(config, "startPre"):
+            config.startPre(self, clippy)
         else:
             Defaults.startPre(self, clippy)
 
     def post(self, clippy):
-        if hasattr(Config, "startPost"):
-            Config.startPost(self, clippy)
+        if hasattr(config, "startPost"):
+            config.startPost(self, clippy)
         else:
             Defaults.startPost(self, clippy)

@@ -1,5 +1,5 @@
 # from util import getOrgDate
-from ..config import Config
+from ..config import config
 from ..default import Defaults
 
 
@@ -17,13 +17,13 @@ class OnStroked:
         self.stroke = stroke
 
     def pre(self, clippy):
-        if hasattr(Config, "onStrokedPre"):
-            Config.onStrokedPre(self, clippy)
+        if hasattr(config, "onStrokedPre"):
+            config.onStrokedPre(self, clippy)
         else:
             Defaults.onStrokedPre(self, clippy)
 
     def post(self, clippy):
-        if hasattr(Config, "onStrokedPost"):
-            Config.onStrokedPost(self, clippy)
+        if hasattr(config, "onStrokedPost"):
+            config.onStrokedPost(self, clippy)
         else:
             Defaults.onStrokedPost(self, clippy)

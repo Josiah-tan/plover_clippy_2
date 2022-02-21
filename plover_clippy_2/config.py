@@ -20,3 +20,5 @@ if not Config:
             continue
         else:
             setattr(Config, key, staticmethod(value))
+
+config = Config()
