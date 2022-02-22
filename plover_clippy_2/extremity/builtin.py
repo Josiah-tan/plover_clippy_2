@@ -15,7 +15,6 @@ class Extremity:
         self.stop_post_sources.wrapColor(obj, clippy, "stop")
 
     def startPost(self, obj, clippy):
-        print(f"self.stop_post_sources.get() = {self.stop_post_sources.get()}")
         self.start_post_sources.wrapColor(obj, clippy, "start")
 
     def stopPre(self, obj, clippy):
