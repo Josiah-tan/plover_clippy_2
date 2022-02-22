@@ -48,6 +48,8 @@ class Defaults:
 
     @staticmethod
     def start(clippy):
+        clippy.state.f = open(clippy.state.output_file_name, 'a')
+
         clippy.translations.sources.set(
                 "Undo", "FingerSpelling", "Retro", "Tkfps")
 

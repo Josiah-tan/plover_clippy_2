@@ -1,3 +1,4 @@
+from .config import config
 from .state import State
 from .default import Defaults
 from .actions import Actions
@@ -19,8 +20,40 @@ from plover.engine import StenoEngine
 class Clippy:
     def __init__(self, engine: StenoEngine) -> None:
         super().__init__()
+        self.config = []
+        self.engine = engine
+        for c in config:
+            self.config.append(_Clippy(c, engine))
 
-        hook = Initialize()
+    def start(self) -> None:
+        self.engine.hook_connect('translated', self.onTranslate)
+        self.engine.hook_connect('stroked', self.onStroked)
+        for c in self.config:
+            c.start()
+
+    def stop(self) -> None:
+        self.engine.hook_disconnect('translated', self.onTranslate)
+        self.engine.hook_disconnect('stroked', self.onStroked)
+        for c in self.config:
+            c.stop()
+
+    def onStroked(self, stroke):
+        if not self.engine.output:
+            return
+        for c in self.config:
+            c.onStroked(stroke)
+
+    def onTranslate(self, old, new):
+        for c in self.config:
+            c.onTranslate(old, new)
+
+
+class _Clippy:
+    def __init__(self, _config, engine: StenoEngine) -> None:
+        super().__init__()
+        self._config = _config
+
+        hook = Initialize(self._config)
         hook.pre(self)
 
         self.engine: StenoEngine = engine
@@ -36,38 +69,36 @@ class Clippy:
         hook.post(self)
 
     def start(self) -> None:
-        hook = Start()
+        hook = Start(self._config)
         hook.pre(self)
         # this order can't be changed ;<
-        self.engine.hook_connect('translated', self.onTranslate)
-        self.engine.hook_connect('stroked', self.onStroked)
-        self.state.f = open(self.state.output_file_name, 'a')
+        # self.engine.hook_connect('translated', self.onTranslate)
+        # self.engine.hook_connect('stroked', self.onStroked)
+        # self.state.f = open(self.state.output_file_name, 'a')
 
         Defaults.start(self)
 
         hook.post(self)
 
     def stop(self) -> None:
-        hook = Stop()
+        hook = Stop(self._config)
         hook.pre(self)
 
-        self.engine.hook_disconnect('translated', self.onTranslate)
-        self.engine.hook_disconnect('stroked', self.onStroked)
+        # self.engine.hook_disconnect('translated', self.onTranslate)
+        # self.engine.hook_disconnect('stroked', self.onStroked)
         self.state.f.close()
 
         hook.post(self)
 
     def onStroked(self, stroke):
-        if not self.engine.output:
-            return
-        hook = OnStroked(stroke)
+        hook = OnStroked(self._config, stroke)
         hook.pre(self)
         # print(self.state.prev_stroke)
         # not sure what else to do here for now
         hook.post(self)
 
     def onTranslate(self, old, new):
-        hook = OnTranslate(old, new)
+        hook = OnTranslate(self._config, old, new)
         hook.pre(self)
         if hook.filter(self):
             for phrase in hook.generator(self):
@@ -93,7 +124,6 @@ class Clippy:
 
 
 ##
-
 
 
 # import re
