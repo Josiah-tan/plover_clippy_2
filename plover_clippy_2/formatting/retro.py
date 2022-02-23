@@ -28,6 +28,7 @@ class Retro(Color):
         self.stroked = self.getStroked(phrase["stroked"])
         self.english = self.getEnglish(
                 clippy, clippy.state.phrase["english"])
+        self.date = f'[{datetime.now().strftime("%F %T")}]'
 
     def format(self, obj, clippy):
         self.mode(obj, clippy)
@@ -37,7 +38,7 @@ class Retro(Color):
         stroked = self.stroked
         english = self.english
         self.output = (
-                f'[{datetime.now().strftime("%F %T")}] {english} || '
+                f'{self.date} {english} || '
                 f'{stroked} -> '
                 f'{suggestions}'
                 )
