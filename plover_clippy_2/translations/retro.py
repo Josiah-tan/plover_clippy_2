@@ -7,8 +7,9 @@ class Retro:
         self.blocking = False
 
     def getEnglish(self, phrase):
-        # tapey-tape hack with 0 meaning get all fragments
-        return ''.join(RetroFormatter(phrase).last_fragments(0))
+        # tapey-tape hack with 0 meaning get all fragments - won't work with latest build
+        # return ''.join(RetroFormatter(phrase).last_fragments(0))
+        return ''.join(RetroFormatter(phrase).last_fragments(999))
 
     def getStroked(self, phrase):
         return [y for x in phrase for y in x.rtfcre]
@@ -27,11 +28,14 @@ class Retro:
         #         clippy.engine.translator_state.translations[-10:]):
         for phrase in tails(translation_stack):
             english = self.getEnglish(phrase)
+            print(f"english  = {english }")
             if english == last:
                 continue
             last = english
             stroked = self.getStroked(phrase)
+            print(f"stroked  = {stroked }")
             suggestions = self.getSuggestions(clippy, english, stroked)
+            print(f"suggestions  = {suggestions }")
             if suggestions:
                 yield {"english": english,
                        "stroked": stroked,
