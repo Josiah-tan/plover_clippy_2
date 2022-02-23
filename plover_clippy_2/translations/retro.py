@@ -9,7 +9,13 @@ class Retro:
     def getEnglish(self, phrase):
         # tapey-tape hack with 0 meaning get all fragments - won't work with latest build
         # return ''.join(RetroFormatter(phrase).last_fragments(0))
-        return ''.join(RetroFormatter(phrase).last_fragments(999))
+        # iterator = ''.join(RetroFormatter(phrase).last_fragments(999))
+        return ''.join(reversed(list(RetroFormatter(phrase).iter_last_fragments())))
+        # iterator = RetroFormatter(phrase).iter_last_fragments()
+        # result = []
+        # for item in iterator:
+        #     result.insert(0, item)
+        # return ''.join(result)
 
     def getStroked(self, phrase):
         return [y for x in phrase for y in x.rtfcre]
