@@ -1,3 +1,4 @@
+#+OPTIONS: ^:nil
 * Alternative Installation
 - This section those how to install without using the plugin manager
 #+BEGIN_SRC bash
