@@ -1,79 +1,56 @@
 #+OPTIONS: ^:nil
 * Plover_clippy_2
 ** Installation
-- Currently this plugin is not available in the official registry so you need to clone this repo
-#+BEGIN_SRC bash
-git clone https://github.com/Josiah-tan/plover_clippy_2 
-#+END_SRC
-- cd into this repo
-- Then install for use!
-	- Note that "plover" is the executable that you downloaded to make Plover work in the first place
-	- See this [[https://plover.readthedocs.io/en/latest/cli_reference.html][website]] for the different locations depending on which platform you are using (Linux, Windows, etc)
-#+BEGIN_SRC bash
-cd plover_clippy_2
-plover -s plover_plugins install -e .
-#+END_SRC
-- Finally make sure to open plover, then go to configure, plugins and enable this plugin!
+*** simple
+- To install this plugin, right click the plover icon. go to tools -> plugins manager, find `plover-clippy-2`, and click "install/update".
+- When it finishes installing, restart Plover, go to configure -> plugins, and check the box next to `plover_clippy_2` to activate the plugin
+*** advanced
+- To gain access to latest updates, you can alternatively install from [[file:docs.org::*Alternative Installation][extended docs]]
+*** developers
+- If you are interested in contributing to this plugin, see [[file:docs.org::*Developers][extended docs]]
 ** Usage
 *** Basic
 - Now that you have installed this plugin it's time to use it!
 - By default the output is written into clippy_2.org in your config files
-	- Basically the same place as where your user.json and main.json is
+	- The same place as where your user.json and main.json is located
 *** Customization
 - In your config directory create a python file:
 	- clippy_2_cfg.py
-- Custom code in this section should be written into this file
+- feel free to write all your customization code here!
 **** Initialization
 - Below are some states that can be set by the user
-	- Note that these are the defaults
+	- Note that these are the basic defaults (see [[file:docs.org::*Defaults][extended docs]] for more)
 #+BEGIN_SRC python
 def initPost(obj, clippy):
-    clippy.state.output_file_name = "clippy_2.org"
-    clippy.state.efficiency_symbol = "*"
-    clippy.state.max_pad_efficiency = 5
-    clippy.state.max_pad_english = 15
-		clippy.state.last_num_translations = 10
+	clippy.state.output_file_name = "clippy_2.org"
+	clippy.state.efficiency_symbol = "*"
+	clippy.state.max_pad_efficiency = 5
+	clippy.state.max_pad_english = 15
+	clippy.state.justify = "left"
+	clippy.state.last_num_translations = 10
 #+END_SRC
 - output_file_name: name of the output file, directory location will default to config directory
 - efficiency_symbol: any one character symbol used to denote how many strokes can be saved
 - max_pad_efficiency: the maximum number of efficiency symbols that are allowed to be displayed
 - max_pad_english: the maximum amount of space padding for English translations
+- justify: add white space either "left" or "right" to the output 
 - last_num_translations: these number of translations are used to give suggestions
 - note: initPost executes after this plugin initializes itself
-**** Suggestion styles
-- Below are some suggestion styles
-	- the default style `org.defaultSuggest` is uncommented
+**** Formatting Sources
+- The different formats come from different "sources", choose whenever you want!!!
+	- below is the default, but feel free to comment out whichever you want
 #+BEGIN_SRC python
-def onTranslateSuggest(obj, clippy):
-    clippy.formatting.org.defaultSuggest(obj, clippy)
-    # clippy.formatting.minimalSuggest(obj, clippy)
-    # clippy.formatting.retro.suggest(obj, clippy)
-    # clippy.formatting.org.debugSuggest(obj, clippy)
-    # clippy.formatting.org.minimalSuggest(obj, clippy)
+def startPost(obj, clippy):
+	clippy.formatting.sources.set(
+		["Org", {"mode": "defaultSuggest"}]
+		# ["Org", {"mode": "debugSuggest"}]
+		# ["Org", {"mode": "minimalSuggest"}]
+
+		# ["Retro", {"mode": "defaultSuggest"}]
+		# ["Retro", {"mode": "minimalSuggest"}]
+		)
 #+END_SRC
-- note: onTranslateSuggest gets called when suggestions are available
-- feel free to make your own suggestion styles (see formatting/org.py for coded examples)
-	- note that `self` refers to different things, for example, in formatting/org.py fit is equivalent to `clippy.formatting.org`
-- org.defaultSuggest:
-#+BEGIN_SRC org
-*     you are         *UR, R*U < KPWR/-R
-#+END_SRC
-- minimalSuggest:
-#+BEGIN_SRC org
-you are         *UR, R*U
-#+END_SRC
-- retro.suggest: same as the original plugin
-#+BEGIN_SRC org
-[2022-02-09 22:29:47] you are         || KPWR/-R -> *UR, R*U
-#+END_SRC
-- org.debugSuggest: same as org.defaultSuggest, but nice for figuring out which suggestion source the suggestion came from
-#+BEGIN_SRC org
-*     you are         *UR, R*U < KPWR/-R  # Retro
-#+END_SRC
-- org.minimalSuggest: minimal required for org syntax highlighting
-#+BEGIN_SRC org
-*     you are         *UR, R*U
-#+END_SRC
+- For more information on customizing formatting sources, see the extended docs
 **** Suggestion sources
 - The suggestions come from different sources, and you can choose which sources to include!!!
 	- Listed below are the defaults
@@ -84,6 +61,14 @@ clippy.translations.sources.set("Undo", "FingerSpelling", "Retro", "Tkfps")
 - see [[file:docs.org::*Sources][Sources]] for other methods like "append" and "prepend"
 **** distillation sources
 - TODO
+**** Extremity Sources
+- TODO
+** Multiple configurations
+- In this plugin it is possible to use multiple configurations to do crazy things like:
+	- multifile output, each with different configurations
+	 - for example one file could have syntax highlighting and the other doesn't
+	- become a framework for other text output programs like tapey-tape (maybe in the future)
+- see [[file:docs.org::*Multiple Configurations][extended docs]] for more information
 ** File viewing
 - well obviously you can open up the file and take a look, but what if you want to have a live view while training?
 *** Terminal
@@ -101,32 +86,11 @@ Note that on WSL, the flag `---disable-inotify` may be required to make `tail` w
 #+BEGIN_SRC bash
 tail -f ---disable-inotify clippy_2.org
 #+END_SRC
-*** Plover-live-view-nvim (neovim only)
+**** Plover-live-view-nvim (neovim only)
 - This [[https://github.com/Josiah-tan/plover-live-view-nvim][plugin]] is a live viewer which supports:
 	- Splits - You can split both horizontally and vertically and customize the sizes of the splits
 	- Terminal viewing (requires [[https://github.com/ThePrimeagen/harpoon][harpoon]])
-	- Buffer viewing (requires [[https://github.com/Josiah-tan/autoread-nvim][autoread-nvim]])
-	 - The benefit of this over the terminal is that you can use custom syntax highlighting!
-*** vim-autoread (vim only [no nvim])
+**** vim-autoread (vim only [no nvim])
 - This [[https://github.com/chrisbra/vim-autoread][plugin]] is a live viewer for buffer viewing
-** Dev
-This section is for people who interested in improving this plugin!
-*** Installation
-- Get the latest build of plover
-#+BEGIN_SRC bash
-pip3 install plover==4.0.0.dev10
-#+END_SRC
-- Fork this repo and clone it locally
-#+BEGIN_SRC bash
-git clone link/to/gitHub
-#+END_SRC
-- cd into this repo
-- Then install for use!
-	- Note that "plover" is the executable that you downloaded to make Plover work in the first place
-	- See this [[https://plover.readthedocs.io/en/latest/cli_reference.html][website]] for the different locations depending on which platform you are using (Linux, Windows, etc)
-#+BEGIN_SRC bash
-cd plover_clippy_2
-plover -s plover_plugins install -e .
-#+END_SRC
-- Edit stuff, test it out and most of all, have fun!
-- Feel free to chuck me a pull request or raise an issue if you have any questions!
+**** Extra
+- see [[file:docs.org::*file viewing][file viewing]] for more cool recipes
