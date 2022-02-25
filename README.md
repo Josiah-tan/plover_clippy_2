@@ -2,33 +2,24 @@
 
 ## Installation
 
-  - Currently this plugin is not available in the official registry so
-    you need to clone this repo
+### simple
 
-<!-- end list -->
+  - To install this plugin, right click the plover icon. go to tools -\>
+    plugins manager, find \`plover-clippy-2\`, and click
+    "install/update".
+  - When it finishes installing, restart Plover, go to configure -\>
+    plugins, and check the box next to \`plover\_clippy\_2\` to activate
+    the plugin
 
-``` bash
-git clone https://github.com/Josiah-tan/plover_clippy_2 
-```
+### advanced
 
-  - cd into this repo
-  - Then install for use\!
-      - Note that "plover" is the executable that you downloaded to make
-        Plover work in the first place
-      - See this
-        [website](https://plover.readthedocs.io/en/latest/cli_reference.html)
-        for the different locations depending on which platform you are
-        using (Linux, Windows, etc)
+  - To gain access to latest updates, you can alternatively install from
+    [extended docs](docs.org::*Alternative%20Installation)
 
-<!-- end list -->
+### developers
 
-``` bash
-cd plover_clippy_2
-plover -s plover_plugins install -e .
-```
-
-  - Finally make sure to open plover, then go to configure, plugins and
-    enable this plugin\!
+  - If you are interested in contributing to this plugin, see [extended
+    docs](docs.org::*Developers)
 
 ## Usage
 
@@ -37,21 +28,21 @@ plover -s plover_plugins install -e .
   - Now that you have installed this plugin it's time to use it\!
   - By default the output is written into clippy\_2.org in your config
     files
-      - Basically the same place as where your user.json and main.json
-        is
+      - The same place as where your user.json and main.json is located
 
 ### Customization
 
   - In your config directory create a python file:
       - clippy\_2\_cfg.py
-  - Custom code in this section should be written into this file
+  - feel free to write all your customization code here\!
 
 <!-- end list -->
 
 1.  Initialization
     
       - Below are some states that can be set by the user
-          - Note that these are the defaults
+          - Note that these are the basic defaults (see [extended
+            docs](docs.org::*Defaults) for more)
     
     <!-- end list -->
     
@@ -61,7 +52,8 @@ plover -s plover_plugins install -e .
         clippy.state.efficiency_symbol = "*"
         clippy.state.max_pad_efficiency = 5
         clippy.state.max_pad_english = 15
-            clippy.state.last_num_translations = 10
+        clippy.state.justify = "left"
+        clippy.state.last_num_translations = 10
     ```
     
       - output\_file\_name: name of the output file, directory location
@@ -72,73 +64,34 @@ plover -s plover_plugins install -e .
         that are allowed to be displayed
       - max\_pad\_english: the maximum amount of space padding for
         English translations
+      - justify: add white space either "left" or "right" to the output
       - last\_num\_translations: these number of translations are used
         to give suggestions
       - note: initPost executes after this plugin initializes itself
 
-2.  Suggestion styles
+2.  Formatting Sources
     
-      - Below are some suggestion styles
-          - the default style \`org.defaultSuggest\` is uncommented
+      - The different formats come from different "sources", choose
+        whenever you want\!\!\!
+          - below is the default, but feel free to comment out whichever
+            you want
     
     <!-- end list -->
     
     ``` python
-    def onTranslateSuggest(obj, clippy):
-        clippy.formatting.org.defaultSuggest(obj, clippy)
-        # clippy.formatting.minimalSuggest(obj, clippy)
-        # clippy.formatting.retro.suggest(obj, clippy)
-        # clippy.formatting.org.debugSuggest(obj, clippy)
-        # clippy.formatting.org.minimalSuggest(obj, clippy)
+    def startPost(obj, clippy):
+        clippy.formatting.sources.set(
+            ["Org", {"mode": "defaultSuggest"}]
+            # ["Org", {"mode": "debugSuggest"}]
+            # ["Org", {"mode": "minimalSuggest"}]
+    
+            # ["Retro", {"mode": "defaultSuggest"}]
+            # ["Retro", {"mode": "minimalSuggest"}]
+            )
     ```
     
-      - note: onTranslateSuggest gets called when suggestions are
-        available
-      - feel free to make your own suggestion styles (see
-        formatting/org.py for coded examples)
-          - note that \`self\` refers to different things, for example,
-            in formatting/org.py fit is equivalent to
-            \`clippy.formatting.org\`
-      - org.defaultSuggest:
-    
-    <!-- end list -->
-    
-    ``` org
-    *     you are         *UR, R*U < KPWR/-R
-    ```
-    
-      - minimalSuggest:
-    
-    <!-- end list -->
-    
-    ``` org
-    you are         *UR, R*U
-    ```
-    
-      - retro.suggest: same as the original plugin
-    
-    <!-- end list -->
-    
-    ``` org
-    [2022-02-09 22:29:47] you are         || KPWR/-R -> *UR, R*U
-    ```
-    
-      - org.debugSuggest: same as org.defaultSuggest, but nice for
-        figuring out which suggestion source the suggestion came from
-    
-    <!-- end list -->
-    
-    ``` org
-    *     you are         *UR, R*U < KPWR/-R  # Retro
-    ```
-    
-      - org.minimalSuggest: minimal required for org syntax highlighting
-    
-    <!-- end list -->
-    
-    ``` org
-    *     you are         *UR, R*U
-    ```
+      - For more information on customizing formatting sources, see the
+        extended docs
 
 3.  Suggestion sources
     
@@ -160,6 +113,22 @@ plover -s plover_plugins install -e .
 4.  distillation sources
     
       - TODO
+
+5.  Extremity Sources
+    
+      - TODO
+
+## Multiple configurations
+
+  - In this plugin it is possible to use multiple configurations to do
+    crazy things like:
+      - multifile output, each with different configurations
+          - for example one file could have syntax highlighting and the
+            other doesn't
+      - become a framework for other text output programs like
+        tapey-tape (maybe in the future)
+  - see [extended docs](docs.org::*Multiple%20Configurations) for more
+    information
 
 ## File viewing
 
@@ -193,62 +162,22 @@ plover -s plover_plugins install -e .
     tail -f ---disable-inotify clippy_2.org
     ```
 
-### Plover-live-view-nvim (neovim only)
+4.  Plover-live-view-nvim (neovim only)
+    
+      - This
+        [plugin](https://github.com/Josiah-tan/plover-live-view-nvim) is
+        a live viewer which supports:
+          - Splits - You can split both horizontally and vertically and
+            customize the sizes of the splits
+          - Terminal viewing (requires
+            [harpoon](https://github.com/ThePrimeagen/harpoon))
 
-  - This [plugin](https://github.com/Josiah-tan/plover-live-view-nvim)
-    is a live viewer which supports:
-      - Splits - You can split both horizontally and vertically and
-        customize the sizes of the splits
-      - Terminal viewing (requires
-        [harpoon](https://github.com/ThePrimeagen/harpoon))
-      - Buffer viewing (requires
-        [autoread-nvim](https://github.com/Josiah-tan/autoread-nvim))
-          - The benefit of this over the terminal is that you can use
-            custom syntax highlighting\!
+5.  vim-autoread (vim only \[no nvim\])
+    
+      - This [plugin](https://github.com/chrisbra/vim-autoread) is a
+        live viewer for buffer viewing
 
-### vim-autoread (vim only \[no nvim\])
-
-  - This [plugin](https://github.com/chrisbra/vim-autoread) is a live
-    viewer for buffer viewing
-
-## Dev
-
-This section is for people who interested in improving this plugin\!
-
-### Installation
-
-  - Get the latest build of plover
-
-<!-- end list -->
-
-``` bash
-pip3 install plover==4.0.0.dev10
-```
-
-  - Fork this repo and clone it locally
-
-<!-- end list -->
-
-``` bash
-git clone link/to/gitHub
-```
-
-  - cd into this repo
-  - Then install for use\!
-      - Note that "plover" is the executable that you downloaded to make
-        Plover work in the first place
-      - See this
-        [website](https://plover.readthedocs.io/en/latest/cli_reference.html)
-        for the different locations depending on which platform you are
-        using (Linux, Windows, etc)
-
-<!-- end list -->
-
-``` bash
-cd plover_clippy_2
-plover -s plover_plugins install -e .
-```
-
-  - Edit stuff, test it out and most of all, have fun\!
-  - Feel free to chuck me a pull request or raise an issue if you have
-    any questions\!
+6.  Extra
+    
+      - see [file viewing](docs.org::*file%20viewing) for more cool
+        recipes
