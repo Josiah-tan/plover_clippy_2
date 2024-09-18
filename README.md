@@ -20,12 +20,16 @@
 
 ### Terminal
 
-  - here are some live commands for different
-    platforms
+  - here are some live commands for different platforms
 
 <!-- end list -->
 
 1.  Windows
+    
+      - press start, type 'powershell' enter, then copy and paste the
+        following:
+    
+    <!-- end list -->
     
     ``` bash
     Get-Content -path "$($env:LOCALAPPDATA)\plover\plover\clippy_2.org" -Wait -Tail 30

@@ -10,7 +10,8 @@
 	- The same place as where your user.json and main.json is located
 *** Terminal
 - here are some live commands for different platforms
-**** Windows
+**** Windows 
+- press start, type 'powershell' enter, then copy and paste the following:
 #+BEGIN_SRC bash
 Get-Content -path "$($env:LOCALAPPDATA)\plover\plover\clippy_2.org" -Wait -Tail 30
 #+END_SRC
