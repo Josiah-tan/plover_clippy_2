@@ -20,14 +20,15 @@
 
 ### Terminal
 
-  - here are some live commands for different platforms
+  - here are some live commands for different
+    platforms
 
 <!-- end list -->
 
 1.  Windows
     
     ``` bash
-    Get-Content clippy_2.org -Wait -Tail 30
+    Get-Content -path "$($env:LOCALAPPDATA)\plover\plover\clippy_2.org" -Wait -Tail 30
     ```
 
 2.  Linux
@@ -65,7 +66,7 @@
       - see [file viewing](docs.org::*file%20viewing) for more cool
         recipes
 
-## Usage
+## Advanced
 
 ### Customization
 

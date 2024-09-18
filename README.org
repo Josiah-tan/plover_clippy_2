@@ -12,7 +12,7 @@
 - here are some live commands for different platforms
 **** Windows
 #+BEGIN_SRC bash
-Get-Content clippy_2.org -Wait -Tail 30
+Get-Content -path "$($env:LOCALAPPDATA)\plover\plover\clippy_2.org" -Wait -Tail 30
 #+END_SRC
 **** Linux
 #+BEGIN_SRC bash
@@ -31,7 +31,7 @@ tail -f ---disable-inotify clippy_2.org
 - This [[https://github.com/chrisbra/vim-autoread][plugin]] is a live viewer for buffer viewing
 **** Extra
 - see [[file:docs.org::*file viewing][file viewing]] for more cool recipes
-** Usage
+** Advanced
 *** Customization
 - In your config directory create a python file:
 	- clippy_2_cfg.py
