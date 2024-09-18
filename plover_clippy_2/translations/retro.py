@@ -34,14 +34,11 @@ class Retro:
         #         clippy.engine.translator_state.translations[-10:]):
         for phrase in tails(translation_stack):
             english = self.getEnglish(phrase)
-            print(f"english  = {english }")
             if english == last:
                 continue
             last = english
             stroked = self.getStroked(phrase)
-            print(f"stroked  = {stroked }")
             suggestions = self.getSuggestions(clippy, english, stroked)
-            print(f"suggestions  = {suggestions }")
             if suggestions:
                 yield {"english": english,
                        "stroked": stroked,
