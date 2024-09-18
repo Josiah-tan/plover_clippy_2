@@ -4,15 +4,34 @@
 *** simple
 - To install this plugin, right click the plover icon. go to tools -> plugins manager, find `plover-clippy-2`, and click "install/update".
 - When it finishes installing, restart Plover, go to configure -> plugins, and check the box next to `plover_clippy_2` to activate the plugin
-*** advanced
-- To gain access to latest updates, you can alternatively install from [[file:docs.org::*Alternative Installation][extended docs]]
-*** developers
-- If you are interested in contributing to this plugin, see [[file:docs.org::*Developers][extended docs]]
-** Usage
-*** Basic
+** File viewing
 - Now that you have installed this plugin it's time to use it!
 - By default the output is written into clippy_2.org in your config files
 	- The same place as where your user.json and main.json is located
+*** Terminal
+- here are some live commands for different platforms
+**** Windows
+#+BEGIN_SRC bash
+Get-Content clippy_2.org -Wait -Tail 30
+#+END_SRC
+**** Linux
+#+BEGIN_SRC bash
+tail -f clippy_2.org
+#+END_SRC
+**** WSL
+Note that on WSL, the flag `---disable-inotify` may be required to make `tail` work
+#+BEGIN_SRC bash
+tail -f ---disable-inotify clippy_2.org
+#+END_SRC
+**** Plover-live-view-nvim (neovim only)
+- This [[https://github.com/Josiah-tan/plover-live-view-nvim][plugin]] is a live viewer which supports:
+	- Splits - You can split both horizontally and vertically and customize the sizes of the splits
+	- Terminal viewing (requires [[https://github.com/ThePrimeagen/harpoon][harpoon]])
+**** vim-autoread (vim only [no nvim])
+- This [[https://github.com/chrisbra/vim-autoread][plugin]] is a live viewer for buffer viewing
+**** Extra
+- see [[file:docs.org::*file viewing][file viewing]] for more cool recipes
+** Usage
 *** Customization
 - In your config directory create a python file:
 	- clippy_2_cfg.py
@@ -69,28 +88,3 @@ clippy.translations.sources.set("Undo", "FingerSpelling", "Retro", "Tkfps")
 	 - for example one file could have syntax highlighting and the other doesn't
 	- become a framework for other text output programs like tapey-tape (maybe in the future)
 - see [[file:docs.org::*Multiple Configurations][extended docs]] for more information
-** File viewing
-- well obviously you can open up the file and take a look, but what if you want to have a live view while training?
-*** Terminal
-- here are some live commands for different platforms
-**** Windows
-#+BEGIN_SRC bash
-Get-Content clippy_2.org -Wait -Tail 30
-#+END_SRC
-**** Linux
-#+BEGIN_SRC bash
-tail -f clippy_2.org
-#+END_SRC
-**** WSL
-Note that on WSL, the flag `---disable-inotify` may be required to make `tail` work
-#+BEGIN_SRC bash
-tail -f ---disable-inotify clippy_2.org
-#+END_SRC
-**** Plover-live-view-nvim (neovim only)
-- This [[https://github.com/Josiah-tan/plover-live-view-nvim][plugin]] is a live viewer which supports:
-	- Splits - You can split both horizontally and vertically and customize the sizes of the splits
-	- Terminal viewing (requires [[https://github.com/ThePrimeagen/harpoon][harpoon]])
-**** vim-autoread (vim only [no nvim])
-- This [[https://github.com/chrisbra/vim-autoread][plugin]] is a live viewer for buffer viewing
-**** Extra
-- see [[file:docs.org::*file viewing][file viewing]] for more cool recipes

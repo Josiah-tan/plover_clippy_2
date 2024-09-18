@@ -245,7 +245,8 @@ def initPost(obj, clippy):
 ### Grep
 
   - the code below will only show new rows write have two or more
-    strokes saved:
+    strokes
+    saved:
 
 <!-- end list -->
 
@@ -272,7 +273,8 @@ def initPost(obj, clippy):
 
 Linux
 
-  - here we replace \`\<\` with itself but colored pink
+  - here we replace \`\<\` with itself but colored
+pink
 
 <!-- end list -->
 
